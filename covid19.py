@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import sys
 import matplotlib.pyplot as plt
+from matplotlib import rcParams
+rcParams.update({'figure.autolayout': True})
 import urllib.request
 
 pd.set_option('display.expand_frame_repr', False)
@@ -70,7 +72,7 @@ plt.plot(itx, 100*itz/itp, label = 'IT {}'.format(np.sum(itz)))
 plt.plot(cnx,100*cnz/cnp, label = 'CN {}'.format(np.sum(cnz)))
 plt.plot(esx,100*esz/esp, label = 'ES {}'.format(np.sum(esz)))
 plt.plot(frx,100*frz/frp, label = 'FR {}'.format(np.sum(frz)))
-plt.xticks(rotation=20)
+plt.xticks(rotation=45)
 plt.grid()
 plt.xlabel('Date')
 plt.ylabel('% of population per day')
@@ -85,7 +87,7 @@ plt.plot(itx, 100*ity/itp, label = 'IT {}'.format(np.sum(ity)))
 plt.plot(cnx,100*cny/cnp, label = 'CN {}'.format(np.sum(cny)))
 plt.plot(esx,100*esy/esp, label = 'ES {}'.format(np.sum(esy)))
 plt.plot(frx,100*fry/frp, label = 'FR {}'.format(np.sum(fry)))
-plt.xticks(rotation=20)
+plt.xticks(rotation=45)
 plt.grid()
 plt.xlabel('Date')
 plt.ylabel('% of population per day')
