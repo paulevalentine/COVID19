@@ -8,7 +8,7 @@ import urllib.request
 
 pd.set_option('display.expand_frame_repr', False)
 # get data from website and save to local location (datapath)
-url = 'https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-03-28.xlsx'
+url = 'https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-03-29.xlsx'
 datapath = r'C:\Users\paul\Dropbox\Paul\COVID19\covid19Data.xlsx'
 file = urllib.request.urlretrieve(url,datapath)
 
