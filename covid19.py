@@ -14,10 +14,9 @@ file = urllib.request.urlretrieve(url,datapath)
 
 # Get data from local file
 getData = pd.read_excel(datapath)
-
 # Set up a dataFrame and filter the data by country
 data = pd.DataFrame(getData)
-data.index = getData['geoId']
+data.index = data['geoId']
 uk = data.filter(like='UK', axis = 0)
 us = data.filter(like='US', axis = 0)
 it = data.filter(like='IT', axis = 0)
@@ -64,6 +63,7 @@ frp = np.array(fr['popData2018'])
 
 # plot the data
 plt.figure(figsize=[5,5])
+
 # Deaths normalised by population
 plt.subplot(1,2,1)
 plt.plot(ukx,100*ukz/ukp, label = 'UK {}'.format(np.sum(ukz)))
