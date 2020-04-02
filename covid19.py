@@ -8,7 +8,7 @@ import urllib.request
 
 pd.set_option('display.expand_frame_repr', False)
 # get data from website and save to local location (datapath)
-url = 'https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-03-31.xlsx'
+url = 'https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-04-02.xlsx'
 datapath = r'C:\Users\paul\Dropbox\Paul\COVID19\covid19Data.xlsx'
 file = urllib.request.urlretrieve(url,datapath)
 
@@ -93,4 +93,6 @@ plt.xlabel('Date')
 plt.ylabel('% of population per day')
 plt.legend()
 plt.title('Cases of COVID 19 normalised by population')
+mng = plt.get_current_fig_manager()
+mng.window.state('zoomed')
 plt.show()
