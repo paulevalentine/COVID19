@@ -5,12 +5,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import datetime as dt
 from matplotlib import rcParams
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
 
 rcParams.update({'figure.autolayout': True})
 
 
 def get_covid_data(date):
     """Get data and save to a local excel file."""
+
+    # url = 'https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-04-12.xlsx'
     url = 'https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-{}.xlsx'.format(
         date)
     datapath = r'C:\Users\paul\Dropbox\Paul\COVID19\covid19Data.xlsx'
@@ -141,7 +145,7 @@ def plot_uk_data():
     data.index = data['geoId']
     # filter UK data
     uk_data = data.loc['UK', :]
-    # plot the Cases
+
     plt.figure(figsize=[12, 12])
     x = dt.datetime.strptime('2020/03/23', '%Y/%m/%d').date()
     y = dt.datetime.strptime('2020/04/06', '%Y/%m/%d').date()
@@ -149,6 +153,16 @@ def plot_uk_data():
     ax2 = plt.subplot2grid((2, 2), (0, 0), rowspan=1, colspan=1)
     ax3 = plt.subplot2grid((2, 2), (1, 0), rowspan=1, colspan=2)
     ax1.plot(uk_data['dateRep'], uk_data['cases'], 'red')
+    l = len(uk_data['cases'])
+    x_p = np.arange(l)
+    y_p = uk_data['cases'].values
+    poly = PolynomialFeatures(degree=6)
+    x_poly = poly.fit_transform(x_p.reshape(-1, 1))
+    model = LinearRegression()
+    model.fit(x_poly, y_p.reshape(-1, 1))
+    y_pred = model.predict(x_poly)
+    ax1.plot(uk_data['dateRep'], y_pred, color='green', linestyle=':')
+
     plt.sca(ax1)
     plt.axvline(x, 0, 2000)
     plt.axvline(y, 0, 2000)
@@ -158,6 +172,15 @@ def plot_uk_data():
     plt.title('COVID19 Cases')
     plt.xticks(rotation=45)
     ax2.plot(uk_data['dateRep'], uk_data['deaths'], 'red')
+    l = len(uk_data['deaths'])
+    x_p = np.arange(l)
+    y_p = uk_data['deaths'].values
+    poly = PolynomialFeatures(degree=6)
+    x_poly = poly.fit_transform(x_p.reshape(-1, 1))
+    model = LinearRegression()
+    model.fit(x_poly, y_p.reshape(-1, 1))
+    y_pred = model.predict(x_poly)
+    ax2.plot(uk_data['dateRep'], y_pred, color='green', linestyle=':')
     plt.sca(ax2)
     plt.axvline(x, 0, 2000)
     plt.axvline(y, 0, 2000)
@@ -181,3 +204,8 @@ def plot_uk_data():
 
     plt.tight_layout()
     plt.show()
+
+""" script to run the above"""
+# get_covid_data('2020-04-13')
+# plot_world_data()
+plot_uk_data()
